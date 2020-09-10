@@ -14,4 +14,3 @@ Recover ELO/1000
 //Workout reduction (WR)
 (Stage > 1) ? (Stage * Recover) : 1
 exercise / WR
-
