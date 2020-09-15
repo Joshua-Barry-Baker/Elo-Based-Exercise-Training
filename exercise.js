@@ -50,6 +50,7 @@ console.log(sitUps);
 let squats = new Exercise(
     'Squats',
     {high:14, mid:8, low:4},
-    {high:bodyWeight + 5, mid:bodyWeight + 3, low:bodyWeight + 2},
+    {high:bodyWeight + 5, mid:bodyWeight + 3, low:bodyWeight},
     {quads:50, glutes:40, hams:10});
+
 console.log(squats);

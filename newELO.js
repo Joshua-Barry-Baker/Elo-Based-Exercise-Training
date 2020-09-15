@@ -1,5 +1,5 @@
-newELO = (a, b) => {
-    expectedRatio = (1 /( 1 + 10^((a-b)/400)));
-    aNew = a + a * expectedRatio;
+newELO = (newRating, oldRating) => {
+    expectedRatio = (1 /( 1 + 10^((newRating-oldRating)/400)));
+    aNew = newRating + newRating * expectedRatio;
     return aNew;
 };
