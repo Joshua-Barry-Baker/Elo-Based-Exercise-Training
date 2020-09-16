@@ -6,6 +6,18 @@
     <script type="text/javascript" src="plans.js"></script>
 </head>
 <body>
-    <p>workoutplanner</p>
+    <h1>Dynamic Workout Planner</h1>
+    <p>
+        If new start by pressing "Display daly 100 plan" and loging your performance. 
+        Then use the save button so that when you return tomorrow you can your performance.
+    </p>
+    <button type="button" id="loadPastPerformanceBtn">Load personal performance</button>
+    <button type="button" id="displayDaly100PlanBtn">Display daly 100 plan</button>
+    <button type="button" id="saveBtn">Save todays effort</button>
 </body>
+<script>
+    document.getElementById("loadPastPerformanceBtn").addEventListener("click", loadLocalStorage);
+    document.getElementById("displayDaly100PlanBtn").addEventListener("click", function(){planDaly100(pressUps, sitUps, squats)});
+    document.getElementById("saveBtn").addEventListener("click",function(){planDaly100Save(pressUps, sitUps, squats)});
+</script>
 </html>
