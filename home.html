@@ -6,6 +6,27 @@
     <script type="text/javascript" src="plans.js"></script>
 </head>
 <body>
-    <p>workoutplanner</p>
+    <h1>Dynamic Workout Planner</h1>
+    <p>
+        This program currently only operates in the console.
+        Please open the console by pressing f12 and clicking on the console tab (top right).
+    </p>
+    <ol>
+        <li>Load if returning user</li>
+        <li>Display after loading or new user</li>
+        <li>Log results once entered number of reps completed</li>
+        <li>Save</li>
+        <li>Return tomorrow improved and with an updated plan</li>
+    </ol>
+    <button type="button" id="loadPastPerformanceBtn">Load personal performance</button>
+    <button type="button" id="displayDaly100PlanBtn">Display daly 100 plan</button>
+    <button type="button" id="logResultsBtn">Log Results and update the plan</button>
+    <button type="button" id="saveBtn">Save todays effort</button>
 </body>
+<script>
+    document.getElementById("loadPastPerformanceBtn").addEventListener("click", loadLocalStorage);
+    document.getElementById("displayDaly100PlanBtn").addEventListener("click", function(){planDaly100(pressUps, sitUps, squats)});
+    document.getElementById("logResultsBtn").addEventListener("click",logResults)
+    document.getElementById("saveBtn").addEventListener("click",function(){planDaly100Save(pressUps, sitUps, squats)});
+</script>
 </html>
