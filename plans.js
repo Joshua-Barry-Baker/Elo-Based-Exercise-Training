@@ -7,83 +7,98 @@ planDaly100 = (pressUps, sitUps, squats) => {
     let display ="<ul>";
 
     //# Sets Press ups
-    sets.pressUps = Math.floor(100/pressUps.reps.mid);
+    sets.pressUps = Math.floor(100/pressUps.reps.bodyWeight);
     if (sets.pressUps === 0){
         sets.pressUps = 1;
-        targetReps.pressUps = pressUps.reps.mid;
+        targetReps.pressUps = pressUps.reps.bodyWeight;
 
         planHeader += "+";
         display += `<li>Push yourself! Try to get more than ${targetReps.pressUps} Press ups in one set!</li>`;
     } else if (sets.pressUps < maxSets){
-        let pressUpsBonusReps = 100 % pressUps.reps.mid;
+        let pressUpsBonusReps = 100 % pressUps.reps.bodyWeight;
         targetReps.pressUps = 100;
 
-        display += `<li>${sets.pressUps} sets of ${pressUps.reps.mid} press ups and one set of ${pressUpsBonusReps}</li>`;
+        display += `<li>${sets.pressUps} sets of ${pressUps.reps.bodyWeight} press ups and one set of ${pressUpsBonusReps}</li>`;
     } else {
         sets.pressUps = maxSets;
-        targetReps.pressUps = sets.pressUps * pressUps.reps.mid;
+        targetReps.pressUps = sets.pressUps * pressUps.reps.bodyWeight;
 
-        display += `<li>${sets.pressUps} sets of ${pressUps.reps.mid} press ups, for a total of ${targetReps.pressUps}. Continue final set to failure!</li>`;
+        display += `<li>${sets.pressUps} sets of ${pressUps.reps.bodyWeight} press ups, for a total of ${targetReps.pressUps}. Continue final set to failure!</li>`;
     }
     //# Sets Sit ups
-    sets.sitUps = Math.floor(100/sitUps.reps.high);
+    sets.sitUps = Math.floor(100/sitUps.reps.bodyWeight);
     if (sets.sitUps === 0){
         sets.sitUps = 1;
-        targetReps.sitUps = sitUps.reps.high;
+        targetReps.sitUps = sitUps.reps.bodyWeight;
 
         planHeader += "+";
-        display += `<li>${sets.pressUps} sets of ${pressUps.reps.mid} press ups, for a total of ${targetReps.pressUps}. Continue final set to failure!</li>`;
+        display += `<li>${sets.pressUps} sets of ${pressUps.reps.bodyWeight} press ups, for a total of ${targetReps.pressUps}. Continue final set to failure!</li>`;
 
     } else if (sets.sitUps < maxSets){
-        let sitUpsBonusReps = 100 % sitUps.reps.high;
+        let sitUpsBonusReps = 100 % sitUps.reps.bodyWeight;
         targetReps.sitUps = 100;
 
-        display += `<li>${sets.sitUps} sets of ${sitUps.reps.high} sit ups and one set of ${sitUpsBonusReps}</li>`;
+        display += `<li>${sets.sitUps} sets of ${sitUps.reps.bodyWeight} sit ups and one set of ${sitUpsBonusReps}</li>`;
 
     } else {
         sets.sitUps = maxSets;
-        targetReps.sitUps = sets.sitUps * sitUps.reps.high;
+        targetReps.sitUps = sets.sitUps * sitUps.reps.bodyWeight;
 
-        display += `<li>${sets.sitUps} sets of ${sitUps.reps.high} sit ups, for a total of ${targetReps.sitUps}. Continue final set to failure!</li>`;
+        display += `<li>${sets.sitUps} sets of ${sitUps.reps.bodyWeight} sit ups, for a total of ${targetReps.sitUps}. Continue final set to failure!</li>`;
     }
     //# Sets Squats
-    sets.squats = Math.floor(100/squats.reps.high);
+    sets.squats = Math.floor(100/squats.reps.bodyWeight);
     if (sets.squats < maxSets){
-        let squatsBonusReps = 100 % squats.reps.high;
+        let squatsBonusReps = 100 % squats.reps.bodyWeight;
         targetReps.squats = 100;
 
         planHeader += "+";
-        display += `<li>${sets.squats} sets of ${squats.reps.high} squats and one set of ${squatsBonusReps}</li>`;
+        display += `<li>${sets.squats} sets of ${squats.reps.bodyWeight} squats and one set of ${squatsBonusReps}</li>`;
 
     } else {
         sets.squats = maxSets;
-        targetReps.squats = sets.squats * squats.reps.high;
+        targetReps.squats = sets.squats * squats.reps.bodyWeight;
 
-        display += `<li>${sets.squats} sets of ${squats.reps.high} squats, for a total of ${targetReps.squats}. Continue final set to failure!</li>`;
+        display += `<li>${sets.squats} sets of ${squats.reps.bodyWeight} squats, for a total of ${targetReps.squats}. Continue final set to failure!</li>`;
     }
     display += "</ul>"; //To close the list
     document.getElementById("contentH1").innerHTML = planHeader; //Displays name of plan to user
     document.getElementById("contentPlanIntro").innerHTML = planIntro; //Displays the intro/instructions to the user
     document.getElementById("contentPlan").innerHTML = display; //Displays the plan to user
+    //Sets displays and sets up the user input
+    userInput = `
+    <input id="pressUpsUserInput" placeholder="Enter Press Ups #${targetReps.pressUps}">
+    <input id="sitUpsUserInput" placeholder="Enter Sit Ups #${targetReps.sitUps}">
+    <input id="squatsUserInput" placeholder="Enter Squats #${targetReps.squats}">
+    <button onclick="logResults()">Log Results</button>
+    `
+    document.getElementById("contentUserInput").innerHTML = userInput;
+
     return(targetReps, sets);
 }
 logResults = () => {
-    //User input tbd
-    console.log("Please enter how many reps you completed!")
-    let completedPressUps = 15; //make user input
-    console.log(completedPressUps);
-
-    let completedSitUps = 20; //make user input
-    console.log(completedSitUps);
-
-    let completedSquats = 50; //make user input
-    console.log(completedSquats);
+    //Takes user input
+    let completedPressUps = document.getElementById("pressUpsUserInput").value;
+    let completedSitUps = document.getElementById("sitUpsUserInput").value;
+    let completedSquats = document.getElementById("squatsUserInput").value;
+    //Required for delta in reps
+    let pressUpsBefore = pressUps.reps.bodyWeight;
+    let sitUpsBefore = sitUps.reps.bodyWeight;
+    let squatsBefore = squats.reps.bodyWeight;
     //Plan adjustments (basic). On a second note, this method would be best for single set rep targets
-    console.log(`BEFORE press up reps mid ${pressUps.reps.mid}, sit up reps high ${sitUps.reps.high}, squats reps high ${squats.reps.high}`)
-    pressUps.reps.mid += Math.floor(1+(completedPressUps-targetReps.pressUps) / (sets.pressUps + 2));
-    sitUps.reps.high += Math.floor(1+(completedSitUps-targetReps.sitUps) / (sets.sitUps + 2));
-    squats.reps.high += Math.floor(1+(completedSquats-targetReps.squats) / (sets.squats + 2));
-    console.log(`AFTER press up reps mid ${pressUps.reps.mid}, sit up reps high ${sitUps.reps.high}, squats reps high ${squats.reps.high}`)
+    pressUps.reps.bodyWeight += Math.floor(1+(completedPressUps-targetReps.pressUps) / (sets.pressUps + 2));
+    sitUps.reps.bodyWeight += Math.floor(1+(completedSitUps-targetReps.sitUps) / (sets.sitUps + 2));
+    squats.reps.bodyWeight += Math.floor(1+(completedSquats-targetReps.squats) / (sets.squats + 2));
+    //Shows the delta in reps to the user
+    document.getElementById("contentChange").innerHTML =
+        `
+        <h2> Change in reps </h2>
+        <p> Press ups: ${pressUps.reps.bodyWeight - pressUpsBefore} </p>
+        <p> Sit ups: ${sitUps.reps.bodyWeight - sitUpsBefore} </p>
+        <p> Squats: ${squats.reps.bodyWeight - squatsBefore} </p>
+        <button onclick="planDaly100Save(pressUps, sitUps, squats)">Save Effort!</button>
+        `;
+    
 }
 planDaly100Save = (pressUps, sitUps, squats) => {
     localStorage.setItem("pressUps", JSON.stringify(pressUps));

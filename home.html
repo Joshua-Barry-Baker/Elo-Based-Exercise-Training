@@ -16,18 +16,16 @@
     </ol>
     <button type="button" id="loadPastPerformanceBtn">Load personal performance</button>
     <button type="button" id="displayDaly100PlanBtn">Display daly 100 plan</button>
-    <button type="button" id="logResultsBtn">Log Results and update the plan</button>
-    <button type="button" id="saveBtn">Save todays effort</button>
     <!-- Display //-->
     <h1 id="contentH1"></h1>
     <p id="contentPlanIntro"></p>
     <p id="contentPlan"></p>
+    <p id="contentUserInput"></p>
+    <p id="contentChange"></p>
 </body>
 <script>
     //Buttons
     document.getElementById("loadPastPerformanceBtn").addEventListener("click", loadLocalStorage);
     document.getElementById("displayDaly100PlanBtn").addEventListener("click", function(){planDaly100(pressUps, sitUps, squats)});
-    document.getElementById("logResultsBtn").addEventListener("click",logResults)
-    document.getElementById("saveBtn").addEventListener("click",function(){planDaly100Save(pressUps, sitUps, squats)});
 </script>
 </html>
