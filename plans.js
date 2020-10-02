@@ -1,6 +1,8 @@
-planDaly100 = (pressUps, sitUps, squats) => {
-    planHeader = "Daly 100";
-    planIntro = "Complete a set of each exercise in order for how many reps displayed. Only go to failure if you can't complete a set or are on the final set! Don't take rests go set to set press ups > sit ups > Squats > press ups > so on! "
+planDaily100 = (pressUps, sitUps, squats) => {
+    planHeader = "Daily 100";
+    planIntro = "This plan will get you to doing over 100 reps of each exercise in a single set. <br />" +
+    "Complete a set of each exercise in order for how many reps displayed.<br />" +
+    "Only go to failure if you can't complete a set or are on the final set! Don't take rests go set to set press ups > sit ups > Squats > press ups > so on!<br />"
     targetReps = {};
     sets = {};
     maxSets = 5;
@@ -12,12 +14,13 @@ planDaly100 = (pressUps, sitUps, squats) => {
         sets.pressUps = 1;
         targetReps.pressUps = pressUps.reps.bodyWeight;
 
-        planHeader += "+";
-        display += `<li>Push yourself! Try to get more than ${targetReps.pressUps} Press ups in one set!</li>`;
+        planHeader += "*";
+        display += `<li>Push yourself! Try to get more than ${targetReps.pressUps} press ups in one set!</li>`;
     } else if (sets.pressUps < maxSets){
         let pressUpsBonusReps = 100 % pressUps.reps.bodyWeight;
         targetReps.pressUps = 100;
 
+        planHeader += "+";
         display += `<li>${sets.pressUps} sets of ${pressUps.reps.bodyWeight} press ups and one set of ${pressUpsBonusReps}</li>`;
     } else {
         sets.pressUps = maxSets;
@@ -31,15 +34,15 @@ planDaly100 = (pressUps, sitUps, squats) => {
         sets.sitUps = 1;
         targetReps.sitUps = sitUps.reps.bodyWeight;
 
-        planHeader += "+";
-        display += `<li>${sets.pressUps} sets of ${pressUps.reps.bodyWeight} press ups, for a total of ${targetReps.pressUps}. Continue final set to failure!</li>`;
+        planHeader += "*";
+        display += `<li>Push yourself! Try to get more than ${targetReps.sitUps} sit ups in one set!</li>`;
 
     } else if (sets.sitUps < maxSets){
         let sitUpsBonusReps = 100 % sitUps.reps.bodyWeight;
         targetReps.sitUps = 100;
 
+        planHeader += "+";
         display += `<li>${sets.sitUps} sets of ${sitUps.reps.bodyWeight} sit ups and one set of ${sitUpsBonusReps}</li>`;
-
     } else {
         sets.sitUps = maxSets;
         targetReps.sitUps = sets.sitUps * sitUps.reps.bodyWeight;
@@ -48,13 +51,18 @@ planDaly100 = (pressUps, sitUps, squats) => {
     }
     //# Sets Squats
     sets.squats = Math.floor(100/squats.reps.bodyWeight);
-    if (sets.squats < maxSets){
+    if (sets.squats === 0){
+        sets.squats = 1;
+        targetReps.squats = squats.reps.bodyWeight;
+
+        planHeader +="*";
+        display += `<li>Push yourself! Try to get more than ${targetReps.squats} squats in one set!</li>`;
+    } else if (sets.squats < maxSets){
         let squatsBonusReps = 100 % squats.reps.bodyWeight;
         targetReps.squats = 100;
 
         planHeader += "+";
         display += `<li>${sets.squats} sets of ${squats.reps.bodyWeight} squats and one set of ${squatsBonusReps}</li>`;
-
     } else {
         sets.squats = maxSets;
         targetReps.squats = sets.squats * squats.reps.bodyWeight;
@@ -67,9 +75,15 @@ planDaly100 = (pressUps, sitUps, squats) => {
     document.getElementById("contentPlan").innerHTML = display; //Displays the plan to user
     //Sets displays and sets up the user input
     userInput = `
-    <input id="pressUpsUserInput" placeholder="Enter Press Ups #${targetReps.pressUps}">
-    <input id="sitUpsUserInput" placeholder="Enter Sit Ups #${targetReps.sitUps}">
-    <input id="squatsUserInput" placeholder="Enter Squats #${targetReps.squats}">
+    <label for="pressUpsUserInput"> Total Press Ups: </label>
+    <input id="pressUpsUserInput" placeholder="Enter Press Ups #${targetReps.pressUps}" type="number" min="0">
+
+    <label for="sitUpsUserInput"> Total Sit Ups: </label>
+    <input id="sitUpsUserInput" placeholder="Enter Sit Ups #${targetReps.sitUps}" type="number" min="0">
+
+    <label for="squatsUserInput"> Total Squats: </label>
+    <input id="squatsUserInput" placeholder="Enter Squats #${targetReps.squats}" type="number" min="0">
+
     <button onclick="logResults()">Log Results</button>
     `
     document.getElementById("contentUserInput").innerHTML = userInput;
@@ -96,11 +110,11 @@ logResults = () => {
         <p> Press ups: ${pressUps.reps.bodyWeight - pressUpsBefore} </p>
         <p> Sit ups: ${sitUps.reps.bodyWeight - sitUpsBefore} </p>
         <p> Squats: ${squats.reps.bodyWeight - squatsBefore} </p>
-        <button onclick="planDaly100Save(pressUps, sitUps, squats)">Save Effort!</button>
+        <button onclick="plandaily100Save(pressUps, sitUps, squats)">Save Effort!</button>
         `;
     
 }
-planDaly100Save = (pressUps, sitUps, squats) => {
+plandaily100Save = (pressUps, sitUps, squats) => {
     localStorage.setItem("pressUps", JSON.stringify(pressUps));
     console.log("Press ups saved to localStorage");
     localStorage.setItem("sitUps", JSON.stringify(sitUps));
